@@ -57,16 +57,19 @@ class MainActivity : ComponentActivity() {
 fun BusinessCardApp() {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Bottom,
         modifier = Modifier.background(Color(0xFFF2F2F2))
     ) {
-        BusinessCardAbout("Sergei Korablev", "coyotl", painterResource(id = R.drawable.coyotl))
-    }
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Bottom,
-    ) {
-        BusinessCardContacts("c0y0tl", "jres.kor@gmail.com")
+        BusinessCardAbout(
+            "Sergei Korablev",
+            "coyotl",
+            painterResource(id = R.drawable.coyotl),
+            modifier = Modifier.padding(bottom = 100.dp)
+        )
+        BusinessCardContacts(
+            "c0y0tl",
+            "jres.kor@gmail.com"
+        )
     }
 }
 
