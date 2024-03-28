@@ -5,12 +5,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
@@ -21,6 +24,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.BiasAbsoluteAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -41,16 +46,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    DescriptionCard(
-                        painter = painterResource(id = R.drawable.coyotl),
-                        name = "Sergei",
-                        surname = "Korablev",
-                        title = "c0y0tl"
-                    )
-                    ContactsCard(
-                        phone = "+X-XXX-XXX-XX-XX",
-                        email = "jres.kor@gmail.com"
-                    )
+                    BusinessCardApp()
                 }
             }
         }
@@ -58,58 +54,68 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun DescriptionCard(painter: Painter, name: String, surname: String, title: String, modifier: Modifier = Modifier) {
+fun BusinessCardApp() {
     Column(
-        verticalArrangement = Arrangement.Center
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier.background(Color(0xFFF2F2F2))
+    ) {
+        BusinessCardAbout("Sergei Korablev", "coyotl", painterResource(id = R.drawable.coyotl))
+    }
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Bottom,
+    ) {
+        BusinessCardContacts("c0y0tl", "jres.kor@gmail.com")
+    }
+}
+
+@Composable
+fun BusinessCardAbout(name: String, nickname: String, painter: Painter, modifier: Modifier = Modifier) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+            .fillMaxWidth()
     ) {
         Image(
             painter = painter,
-            contentDescription = "$name $surname",
-            modifier = modifier.align(Alignment.CenterHorizontally)
+            contentDescription = null,
+            Modifier.padding(bottom = 16.dp)
         )
         Text(
-            text = "$name $surname",
-            modifier = modifier.align(Alignment.CenterHorizontally),
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
+            text = name,
+            fontWeight = FontWeight.Light,
+            fontSize = 35.sp,
         )
         Text(
-            text = title,
-            textAlign = TextAlign.Center,
-            modifier = modifier.align(Alignment.CenterHorizontally),
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Light
+            text = nickname,
+            fontWeight = FontWeight.Bold,
+            fontSize = 25.sp
         )
     }
 }
 
 @Composable
-fun ContactsCard(phone: String, email: String, modifier: Modifier = Modifier) {
-    Row(
-        modifier = modifier.padding(10.dp),
-        verticalAlignment = Alignment.Bottom,
-        horizontalArrangement = Arrangement.Center
-    ) {
-        Column(
-            modifier = modifier
-                .width(30.dp)
-        ) {
+fun BusinessCardContacts(twitch: String, email: String, modifier: Modifier = Modifier) {
+    Column() {
+        Row() {
             Image(
-                painter = painterResource(id = R.drawable.baseline_call_24),
-                contentDescription = "Телефон",
+                painter = painterResource(id = R.drawable.email),
+                contentDescription = "Email",
             )
-            Image(
-                painter = painterResource(id = R.drawable.baseline_email_24),
-                contentDescription = "Электронная почта"
+            Text(
+                text = email,
+                modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)
             )
         }
-        Column(
-        ) {
-            Text(
-                text = phone
+        Row {
+            Image(
+                painter = painterResource(id = R.drawable.twitch),
+                contentDescription = "Email",
             )
             Text(
-                text = email
+                text = twitch,
+                modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)
             )
         }
     }
